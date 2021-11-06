@@ -1,6 +1,5 @@
 package guru.springframework.converters;
 
-
 import guru.springframework.commands.CategoryCommand;
 import guru.springframework.domain.Category;
 import lombok.Synchronized;
@@ -12,19 +11,21 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class CategoryCommandToCategory implements Converter<CategoryCommand, Category>{
+public class CategoryToCategoryCommand implements Converter<Category, CategoryCommand> {
 
     @Synchronized
     @Nullable
     @Override
-    public Category convert(CategoryCommand source) {
+    public CategoryCommand convert(Category source) {
         if (source == null) {
             return null;
         }
 
-        final Category category = new Category();
-        category.setId(source.getId());
-        category.setDescription(source.getDescription());
-        return category;
+        final CategoryCommand categoryCommand = new CategoryCommand();
+
+        categoryCommand.setId(source.getId());
+        categoryCommand.setDescription(source.getDescription());
+
+        return categoryCommand;
     }
 }
